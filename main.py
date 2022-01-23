@@ -8,6 +8,7 @@ mobile_regex = re.compile(r"^020?[10,11,12]\d{8}")
 print(datetime.now())
 print(datetime.today())
 
+
 def registeration():
     while True:
         fname = input("Please, Enter Your First Name: \n")
@@ -17,7 +18,7 @@ def registeration():
             print("Invalid First Name")
     while True:
         lname = input("Please, Enter Your Last Name: \n")
-        if lname.isalpha() :
+        if lname.isalpha():
             break
         else:
             print("Invalid Last Name")
@@ -175,7 +176,7 @@ def createpost(email):
             else:
                 break;
     # project data list with , between userdata
-    projectdata = ",".join([id,title, details, target, pro_startdate, pro_enddate,email])
+    projectdata = ",".join([id, title, details, target, pro_startdate, pro_enddate, email])
     projectdata = projectdata + "\n"
     try:
         readfile = open("projects.txt")
@@ -203,7 +204,7 @@ def createpost(email):
                 file.write(projectdata)
                 file.close()
                 print("Project Have been Created Successfully")
-
+                projectmenu(email)
 
 
 def View(email):
@@ -224,16 +225,74 @@ def View(email):
                 print("----------------Projects----------------")
                 print(f"{projects}")
                 readfile.close()
-                break
+                projectmenu(email)
         else:
             print("This user doesnt have any projects to view")
+            View(email)
 
 
-def Search():
-    print("Search post")
+def Search(email):
+    print("------------Search Project----------------")
+
+    while True:
+        print("Please , Make Your Choice ")
+        print("1- Search By Name")
+        print("2- Search By Date")
+        print("3- back")
+        choice = int(input("so 1 or 2 or 3 \n"))
+        if (choice == 1):
+            project_name = input("Please , Enter Project Name ")
+            try:
+                readfile = open("projects.txt")
+            except:
+                print("File Doesnt Exit")
+            else:
+                # read data from file
+                data = readfile.readlines()
+                projects = []
+                for i in data:
+                    projects.append(i.strip("\n"))
+                for project in projects:
+                    projectsdetails = project.split(",")
+                    if projectsdetails[1] == project_name and projectsdetails[6] == email:
+                        print("----------------Projects----------------")
+                        print(f"{project}")
+                        readfile.close()
+                        projectmenu(email)
+                else:
+                    print("This Project Doesnt Exit")
+                    Search(email)
+        elif (choice == 2):
+            proj_start_date = input("Please , Enter Start Date ")
+            proj_end_date = input("Please , Enter End Date ")
+            try:
+                readfile = open("projects.txt")
+            except:
+                print("File Doesnt Exit")
+            else:
+                # read data from file
+                data = readfile.readlines()
+                projects = []
+                for i in data:
+                    projects.append(i.strip("\n"))
+                for project in projects:
+                    projectsdetails = project.split(",")
+                    if projectsdetails[4] == proj_start_date and projectsdetails[5] == proj_end_date and \
+                            projectsdetails[6] == email:
+                        print("----------------Projects----------------")
+                        print(f"{project}")
+                        readfile.close()
+                        projectmenu(email)
+                else:
+                    print("This Project Doesnt Exit")
+                    Search(email)
+        elif (choice == 3):
+            main()
+        else:
+            print("Wrong Data")
 
 
-def Delete():
+def Delete(email):
     print("Delete post")
 
 
@@ -260,13 +319,13 @@ def projectmenu(email):
             View(email)
             break
         elif (choice == 3):
-            Search()
+            Search(email)
             break
         elif (choice == 4):
-            Delete()
+            Delete(email)
             break
         elif (choice == 5):
-            #     main()
+            main()
             break
         elif (choice == 6):
             exit()
