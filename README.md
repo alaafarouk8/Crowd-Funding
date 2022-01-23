@@ -1,7 +1,7 @@
 # Crowd-Funding
 # The app should include the following features
 # 1 - Authentication System
- # 1.1 Registration
+ ### 1.1 Registration
   <br>
    • First name
      <br>
