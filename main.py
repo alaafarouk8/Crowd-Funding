@@ -123,7 +123,7 @@ def login():
 
 
 # ------------------------------------------------------------------- #
-def createpost(email):
+def createproject(email):
     print("--------------Create Project------------------")
     while True:
         id = input("Please, Enter Project Id \n")
@@ -175,7 +175,7 @@ def createpost(email):
                 print("Start Date cant be less than ", start_date)
             else:
                 break;
-    # project data list with , between userdata
+    # project data list with , between project data
     projectdata = ",".join([id, title, details, target, pro_startdate, pro_enddate, email])
     projectdata = projectdata + "\n"
     try:
@@ -207,6 +207,7 @@ def createpost(email):
                 projectmenu(email)
 
 
+# ------------------------------------------------------------------------------------------ #
 def View(email):
     print("------------View Project----------------")
     try:
@@ -226,11 +227,12 @@ def View(email):
                 print(f"{projects}")
                 readfile.close()
                 projectmenu(email)
-        else:
-            print("This user doesnt have any projects to view")
-            View(email)
+            else:
+                print("This user doesnt have any projects to view")
+                projectmenu(email)
 
 
+# ------------------------------------------------------------------------------------------ #
 def Search(email):
     print("------------Search Project----------------")
 
@@ -241,7 +243,12 @@ def Search(email):
         print("3- back")
         choice = int(input("so 1 or 2 or 3 \n"))
         if (choice == 1):
-            project_name = input("Please , Enter Project Name ")
+            while True:
+                project_name = input("Please, Enter Project Name \n")
+                if project_name.isalpha():
+                    break
+                else:
+                    print("Invalid Title")
             try:
                 readfile = open("projects.txt")
             except:
@@ -263,8 +270,14 @@ def Search(email):
                     print("This Project Doesnt Exit")
                     Search(email)
         elif (choice == 2):
-            proj_start_date = input("Please , Enter Start Date ")
-            proj_end_date = input("Please , Enter End Date ")
+            while True:
+                proj_start_date = input("Please , Enter Start Date ")
+                proj_end_date = input("Please , Enter End Date ")
+                if proj_start_date.isalpha() and proj_end_date.isalpha():
+                    break
+                else:
+                    print("Invalid Date")
+
             try:
                 readfile = open("projects.txt")
             except:
@@ -293,11 +306,38 @@ def Search(email):
 
 
 def Delete(email):
-    print("Delete post")
-
-
-def Back():
-    print("Back post")
+    print("------------Delete Project----------------")
+    while True:
+        project_name = input("Please, Enter Project Name \n")
+        project_id = input("Please, Enter Project id \n")
+        if project_name.isalpha() and project_id.isdigit():
+            break
+        else:
+            print("Invalid Title or Invalid Id")
+    try:
+        projectfile = open("projects.txt")
+    except:
+        print("file not found")
+    else:
+        data = projectfile.readlines()
+        projects = []
+        for item in data:
+            projects.append(item.strip("\n"))
+        for project in projects:
+            projectdetails = project.split(",")
+            if projectdetails[0] == project_id and projectdetails[6] == email:
+                print(project)
+                projects.remove(project)
+                print("Project Has Been Deleted Successfully!")
+                projectfile.close()
+                wfile = open("projects.txt", "w")
+                for pro in projects:
+                    wfile.write(pro + "\n")
+                wfile.close()
+                projectmenu(email)
+        else:
+            print("This Project Doesnt Exit")
+            Delete(email)
 
 
 def projectmenu(email):
@@ -305,7 +345,7 @@ def projectmenu(email):
     print("----------------Project Menu--------------")
     while True:
         print("Please , Make Your Choice ")
-        print("1- Create project")
+        print("1- Create Project")
         print("2- View Project")
         print("3- Search")
         print("4- Delete")
@@ -313,7 +353,7 @@ def projectmenu(email):
         print("6- Exit")
         choice = int(input("so 1 or 2 or 3 or 4 or 5 or 6\n"))
         if (choice == 1):
-            createpost(email)
+            createproject(email)
             break
         elif (choice == 2):
             View(email)
