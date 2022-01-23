@@ -304,7 +304,7 @@ def Search(email):
         else:
             print("Wrong Data")
 
-
+# ------------------------------------------------------------------- #
 def Delete(email):
     print("------------Delete Project----------------")
     while True:
@@ -339,7 +339,7 @@ def Delete(email):
             print("This Project Doesnt Exit")
             Delete(email)
 
-
+# ------------------------------------------------------------------- #
 def projectmenu(email):
     print("------------------------------------------")
     print("----------------Project Menu--------------")
@@ -372,6 +372,7 @@ def projectmenu(email):
         else:
             print("Wrong Data")
 
+# ------------------------------------------------------------------- #
 
 def main():
     print("************************************************")
@@ -393,5 +394,5 @@ def main():
         else:
             print("Wrong Data")
 
-
+# ------------------------------------------------------------------- #
 main()
