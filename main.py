@@ -155,7 +155,7 @@ def createproject(email):
         try:
             datetime.strptime(str(pro_startdate), format)
         except ValueError:
-            print("This is the incorrect date string format. It should be YYYY-MM-DD")
+            print("This is the incorrect date string format. It should be DD-MM-YYYY")
         else:
             start_date = datetime.strptime(str(pro_startdate), format)
             datenow = datetime.today()
@@ -168,7 +168,7 @@ def createproject(email):
         try:
             datetime.strptime(str(pro_enddate), format)
         except ValueError:
-            print("This is the incorrect date string format. It should be YYYY-MM-DD")
+            print("This is the incorrect date string format. It should be DD-MM-YYYY")
         else:
             end_date = datetime.strptime(str(pro_enddate), format)
             if (end_date < start_date):
