@@ -1,9 +1,13 @@
 import re
 from datetime import datetime
+
 format = "%d-%m-%Y"
 email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 pass_reg = re.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$")
 mobile_regex = re.compile(r"^020?[10,11,12]\d{8}")
+print(datetime.now())
+print(datetime.today())
+
 def registeration():
     while True:
         fname = input("Please, Enter Your First Name: \n")
@@ -13,7 +17,7 @@ def registeration():
             print("Invalid First Name")
     while True:
         lname = input("Please, Enter Your Last Name: \n")
-        if lname.isalpha():
+        if lname.isalpha() :
             break
         else:
             print("Invalid Last Name")
@@ -53,7 +57,6 @@ def registeration():
     # user data list with , between userdata
     userdata = ",".join([fname, lname, email, password, phonenumber])
     userdata = userdata + "\n"
-
     # exception handler for file
     try:
         readfile = open("users.txt")
@@ -65,7 +68,6 @@ def registeration():
         users = []
         for i in data:
             users.append(i.strip("\n"))
-            print(users)
         # to check if user email exits or not
         for user in users:
             userdetails = user.split(",")
@@ -105,8 +107,8 @@ def login():
     readfile = open("users.txt")
     data = readfile.readlines()
     users = []
-    for item in data:
-        users.append(item.strip("\n"))
+    for i in data:
+        users.append(i.strip("\n"))
     for user in users:
         userdetails = user.split(",")
         if userdetails[2] == email and userdetails[3] == password:
@@ -117,8 +119,17 @@ def login():
     else:
         print("User Doesnt Exit")
         login()
+
+
 # ------------------------------------------------------------------- #
 def createpost(email):
+    print("--------------Create Project------------------")
+    while True:
+        id = input("Please, Enter Project Id \n")
+        if id.isdigit():
+            break
+        else:
+            print("Invalid Id")
     while True:
         title = input("Please, Enter Project Title \n")
         if title.isalpha():
@@ -146,7 +157,7 @@ def createpost(email):
             print("This is the incorrect date string format. It should be YYYY-MM-DD")
         else:
             start_date = datetime.strptime(str(pro_startdate), format)
-            datenow = datetime.now()
+            datenow = datetime.today()
             if (datenow > start_date):
                 print("Start Date cant be less than ", datenow)
             else:
@@ -159,13 +170,12 @@ def createpost(email):
             print("This is the incorrect date string format. It should be YYYY-MM-DD")
         else:
             end_date = datetime.strptime(str(pro_enddate), format)
-            datenow = datetime.now()
             if (end_date < start_date):
                 print("Start Date cant be less than ", start_date)
             else:
                 break;
-        # user data list with , between userdata
-    projectdata = ",".join([title, details , target, pro_startdate, pro_enddate])
+    # project data list with , between userdata
+    projectdata = ",".join([id,title, details, target, pro_startdate, pro_enddate,email])
     projectdata = projectdata + "\n"
     try:
         readfile = open("projects.txt")
@@ -178,11 +188,11 @@ def createpost(email):
         for i in data:
             projects.append(i.strip("\n"))
         for project in projects:
-            projectdetails = project.split(",")
-            # if userdetails[2] == email:
-            #     print("Email Already Exits")
-            #     readfile.close()
-            #     registeration()
+            projectsdetails = project.split(",")
+            if projectsdetails[0] == id:
+                print("Project Already Exits")
+                readfile.close()
+                createpost(email)
         else:
             readfile.close()
             try:
@@ -195,8 +205,28 @@ def createpost(email):
                 print("Project Have been Created Successfully")
 
 
-def View():
-    print("view post")
+
+def View(email):
+    print("------------View Project----------------")
+    try:
+        readfile = open("projects.txt")
+    except:
+        print("File Doesnt Exit")
+    else:
+        # read data from file
+        data = readfile.readlines()
+        projects = []
+        for i in data:
+            projects.append(i.strip("\n"))
+        for project in projects:
+            projectsdetails = project.split(",")
+            if projectsdetails[6] == email:
+                print("----------------Projects----------------")
+                print(f"{projects}")
+                readfile.close()
+                break
+        else:
+            print("This user doesnt have any projects to view")
 
 
 def Search():
@@ -227,7 +257,7 @@ def projectmenu(email):
             createpost(email)
             break
         elif (choice == 2):
-            View()
+            View(email)
             break
         elif (choice == 3):
             Search()
@@ -236,13 +266,12 @@ def projectmenu(email):
             Delete()
             break
         elif (choice == 5):
-       #     main()
+            #     main()
             break
         elif (choice == 6):
             exit()
         else:
             print("Wrong Data")
-
 
 
 def main():
