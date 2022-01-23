@@ -2,9 +2,9 @@
 # The app should include the following features
 # 1 - Authentication System
  # 1.1 Registration
-   <br>
+  <br>
    • First name
-   <br>
+     <br>
    • Last name
       <br>
    • Email
@@ -13,12 +13,13 @@
       <br>
    • Confirm password
       <br>
-   • Mobile phone [validated against Egyptian phone numbers]
+   • Mobile phone 
  <br>
+
 ### 1.2 Login
    The user should be able to login after activation using his email and password
 # 2 – Projects
-The user can create a project fund raise campaign which contains
+   The user can create a project fund raise campaign which contains
 <br>
     • Title
        <br>
