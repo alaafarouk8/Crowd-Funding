@@ -14,7 +14,7 @@
    • Confirm password
       <br>
    • Mobile phone [validated against Egyptian phone numbers]
-  # 1.2 Login
+# 1.2 Login
    The user should be able to login after activation using his email and password
 # 2 – Projects
 The user can create a project fund raise campaign which contains
