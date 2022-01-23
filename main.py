@@ -193,7 +193,7 @@ def createproject(email):
             if projectsdetails[0] == id:
                 print("Project Already Exits")
                 readfile.close()
-                createpost(email)
+                createproject(email)
         else:
             readfile.close()
             try:
