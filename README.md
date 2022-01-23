@@ -14,6 +14,7 @@
    • Confirm password
       <br>
    • Mobile phone [validated against Egyptian phone numbers]
+ <br>
 # 1.2 Login
    The user should be able to login after activation using his email and password
 # 2 – Projects
