@@ -5,8 +5,13 @@ email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 pass_reg = re.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$")
 mobile_regex = re.compile(r"^020?[10,11,12]\d{8}")
 class useroperations:
-    def __init__(self):
-        pass
+    # def __init__(self,  fname, lname, email,passowrd, phonenumber):
+    #     self.id = id
+    #     self.fname = fname
+    #     self.lname = lname
+    #     self.email = email
+    #     self.passowrd = passowrd
+    #     self.phonenumber = phonenumber
     def registeration(self):
         while True:
             fname = input("Please, Enter Your First Name: \n")
@@ -84,7 +89,6 @@ class useroperations:
                     file.write(userdata)
                     file.close()
                     print("Registration Successfully")
-                    mainMenu.main()
 
     def login(self):
         while True:
@@ -118,6 +122,14 @@ class useroperations:
             print("User Doesnt Exit")
             self.login()
 class projectOperations:
+    # def __init__(self, id, title, details, total_target, start_date, end_date,owner_project):
+    #     self.id=id
+    #     self.title = title
+    #     self.details = details
+    #     self.total_target = total_target
+    #     self.start_date = start_date
+    #     self.end_date = end_date
+    #     self.project_raiser = owner_project
     def createproject(self,email):
         print("--------------Create Project------------------")
         while True:
