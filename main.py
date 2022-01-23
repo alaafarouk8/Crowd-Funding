@@ -227,9 +227,9 @@ def View(email):
                 print(f"{projects}")
                 readfile.close()
                 projectmenu(email)
-            else:
-                print("This user doesnt have any projects to view")
-                projectmenu(email)
+        else:
+             print("This user doesnt have any projects to view")
+             projectmenu(email)
 
 
 # ------------------------------------------------------------------------------------------ #
@@ -270,37 +270,30 @@ def Search(email):
                     print("This Project Doesnt Exit")
                     Search(email)
         elif (choice == 2):
-            while True:
-                proj_start_date = input("Please , Enter Start Date ")
-                proj_end_date = input("Please , Enter End Date ")
-                if proj_start_date.isalpha() and proj_end_date.isalpha():
-                    break
-                else:
-                    print("Invalid Date")
-
             try:
-                readfile = open("projects.txt")
+                projectfile = open("projects.txt")
             except:
-                print("File Doesnt Exit")
+                print("file not found")
             else:
-                # read data from file
-                data = readfile.readlines()
+                data = projectfile.readlines()
                 projects = []
-                for i in data:
-                    projects.append(i.strip("\n"))
+                for item in data:
+                    projects.append(item.strip("\n"))
+                project_start_date = input("enter start date \n")
+                project_end_date = input("enter end date \n")
                 for project in projects:
-                    projectsdetails = project.split(",")
-                    if projectsdetails[4] == proj_start_date and projectsdetails[5] == proj_end_date and \
-                            projectsdetails[6] == email:
-                        print("----------------Projects----------------")
-                        print(f"{project}")
-                        readfile.close()
-                        projectmenu(email)
+                    projectdetails = project.split(",")
+                    if projectdetails[4] == project_start_date and projectdetails[5] == project_end_date:
+                        if projectdetails[6] == email:
+                            print(f"{project}")
+                            projectfile.close()
+                            break
+                    # break
                 else:
-                    print("This Project Doesnt Exit")
+                    print("## you entered wrong date of project search again ! ##")
                     Search(email)
         elif (choice == 3):
-            main()
+            projectmenu(email)
         else:
             print("Wrong Data")
 
@@ -336,8 +329,8 @@ def Delete(email):
                 wfile.close()
                 projectmenu(email)
         else:
-            print("This Project Doesnt Exit")
-            Delete(email)
+           print("This Project Doesnt Exit")
+           Delete(email)
 
 # ------------------------------------------------------------------- #
 def projectmenu(email):
@@ -375,8 +368,8 @@ def projectmenu(email):
 # ------------------------------------------------------------------- #
 
 def main():
-    print("************************************************")
-    print("******************Crowd Funding****************")
+    print("------------------------------------------")
+    print("---------------Crowd Funding--------------")
     while True:
         print("Please , Make Your Choice ")
         print("1- Registration")
@@ -396,3 +389,6 @@ def main():
 
 # ------------------------------------------------------------------- #
 main()
+
+
+
